@@ -1,13 +1,235 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Wellness Platform</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Wellness Platform - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        
+        .role-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .role-btn {
+            flex: 1;
+            padding: 1.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .role-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .role-btn.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .role-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 1rem;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer-text {
+            text-align: center;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .footer-text a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .checkmark {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="signupForm">
+            <div class="logo">💚</div>
+            <h1>Create an Account</h1>
+            <p class="subtitle">Join the Student Wellness Platform</p>
+            
+            <div class="role-selector">
+                <div class="role-btn active" onclick="selectRole('student')" id="studentBtn">
+                    <div class="role-icon">🎓</div>
+                    <div>Student</div>
+                </div>
+                <div class="role-btn" onclick="selectRole('admin')" id="adminBtn">
+                    <div class="role-icon">🛡️</div>
+                    <div>Admin</div>
+                </div>
+            </div>
+            
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Alex Doe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="alex@university.edu" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Sign Up →</button>
+            </form>
+            
+            <p class="footer-text">Already have an account? <a href="#">Log in</a></p>
+        </div>
+        
+        <div id="successMessage" class="success-message">
+            <div class="checkmark">✅</div>
+            <h1>Welcome!</h1>
+            <p class="subtitle">Your account has been created successfully</p>
+            <p style="margin-top: 2rem; color: #666;">
+                This is a demo prototype of the Student Wellness Platform.<br>
+                <strong id="roleText">Student</strong> dashboard would load here in the full application.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        let selectedRole = 'student';
+        
+        function selectRole(role) {
+            selectedRole = role;
+            document.getElementById('studentBtn').classList.remove('active');
+            document.getElementById('adminBtn').classList.remove('active');
+            
+            if (role === 'student') {
+                document.getElementById('studentBtn').classList.add('active');
+            } else {
+                document.getElementById('adminBtn').classList.add('active');
+            }
+        }
+        
+        function handleSubmit(event) {
+            event.preventDefault();
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('successMessage').classList.add('show');
+            document.getElementById('roleText').textContent = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
+        }
+    </script>
+</body>
 </html>
